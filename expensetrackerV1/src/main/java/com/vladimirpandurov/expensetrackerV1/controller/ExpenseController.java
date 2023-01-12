@@ -4,12 +4,10 @@ import com.vladimirpandurov.expensetrackerV1.model.Expense;
 import com.vladimirpandurov.expensetrackerV1.service.ExpenseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/expenses")
 public class ExpenseController {
@@ -23,5 +21,15 @@ public class ExpenseController {
     public ResponseEntity<List<Expense>> getExpenses() {
         List<Expense> expenses = expenseService.findAll();
         return new ResponseEntity<>(expenses, HttpStatus.OK);
+    }
+    @PostMapping("")
+    public ResponseEntity<Expense> saveExpenses(@RequestBody Expense expense){
+        Expense savedExpense = expenseService.save(expense);
+        return new ResponseEntity<Expense>(savedExpense, HttpStatus.CREATED);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Expense> findById(@PathVariable("id") Long id){
+        Expense expense = this.expenseService.findById(id);
+        return new ResponseEntity<Expense>(expense, HttpStatus.OK);
     }
 }
