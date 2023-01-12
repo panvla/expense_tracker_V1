@@ -12,4 +12,6 @@ public interface ExpenseService {
 
     Expense findById(Long id);
 
+    void delete(Long id);
+
 }

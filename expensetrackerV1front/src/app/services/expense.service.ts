@@ -28,4 +28,8 @@ export class ExpenseService {
       map(response => response)
     );
   }
+
+  deleteExpense(id: number): Observable<any>{
+    return this._httpClient.delete(`${this.baseUrl}/${id}`,{responseType: 'text'});
+  }
 }

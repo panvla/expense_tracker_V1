@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,RequestMethod.DELETE})
 @RestController
 @RequestMapping("/api/v1/expenses")
 public class ExpenseController {
@@ -31,5 +31,10 @@ public class ExpenseController {
     public ResponseEntity<Expense> findById(@PathVariable("id") Long id){
         Expense expense = this.expenseService.findById(id);
         return new ResponseEntity<Expense>(expense, HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") Long id){
+        this.expenseService.delete(id);
+        return new ResponseEntity<>("Expense is deleted successfully.!",HttpStatus.OK);
     }
 }
