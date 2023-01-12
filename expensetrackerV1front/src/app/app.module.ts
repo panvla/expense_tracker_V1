@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 const routes: Routes = [
   {path: 'expenses', component: ListExpenseComponent},
   {path: 'addexpenses', component: AddExpenseComponent},
+  {path: 'edit/:id', component: AddExpenseComponent},
   {path: '', redirectTo: '/expenses', pathMatch: 'full'}
 ];
 

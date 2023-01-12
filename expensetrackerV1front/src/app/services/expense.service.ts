@@ -22,4 +22,10 @@ export class ExpenseService {
   saveExpenses(expense: Expense): Observable<Expense> {
     return this._httpClient.post<Expense>(this.baseUrl,expense);
   }
+
+  getExpense(id: number): Observable<Expense> {
+    return this._httpClient.get<Expense>(`${this.baseUrl}/${id}`).pipe(
+      map(response => response)
+    );
+  }
 }

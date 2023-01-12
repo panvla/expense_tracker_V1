@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Expense } from 'src/app/models/expense';
 import { ExpenseService } from 'src/app/services/expense.service';
 
@@ -12,9 +12,16 @@ export class AddExpenseComponent implements OnInit {
 
   expense: Expense = new Expense();
 
-  constructor(private _expenseService: ExpenseService, private _router: Router) { }
+  constructor(private _expenseService: ExpenseService, private _router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const isIdPresent = this.activatedRoute.snapshot.paramMap.has('id');
+    if(isIdPresent){
+      const id = +this.activatedRoute.snapshot.paramMap.get('id');
+      this._expenseService.getExpense(id).subscribe(
+        data => this.expense = data
+      );
+    }
   }
 
   saveExpense(){
@@ -25,5 +32,7 @@ export class AddExpenseComponent implements OnInit {
       }
     );
   }
+
+
 
 }
